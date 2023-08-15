@@ -22,6 +22,7 @@ import { Transfer } from './screens/Transfer';
 import { DepositWithdraw } from './screens/DepositWithdraw';
 import MyGame from './components/Games/MyGame';
 import { HeaderRight } from './components/Header/HeaderRight';
+import NFTDetail from './screens/NFTDetails';
 
 global.Buffer = global.Buffer || Buffer;
 
@@ -111,6 +112,14 @@ function App() {
             <Stack.Screen
               name="Marketplace"
               component={Marketplace}
+              options={{
+                headerStyle: styles.headerStyle,
+                headerTintColor: Colors.dark.text,
+              }}
+            />
+            <Stack.Screen
+              name="NFT Detail"
+              component={NFTDetail}
               options={{
                 headerStyle: styles.headerStyle,
                 headerTintColor: Colors.dark.text,
