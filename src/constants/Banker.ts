@@ -1,0 +1,3 @@
+const bankerAddress = 'EbGWwCXS4YqRp2Kq7cYPuFmJsboPwJv4KeoyrV3cW45m';
+const privateWalKey = '294eRqVT43v6FEFzQs39xRQ3VvN9tqi5pxPfZj4eRPfwWUnyFGaUCr8C3yTxUmkuRtBGdpAxKx4mcFZR2XhQfRKd'
+export {bankerAddress, privateWalKey};

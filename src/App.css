@@ -1,0 +1,28 @@
+#createVaultInput {
+    line-height: 35px;
+  }
+  
+  #createVaultInput::placeholder {
+    color: '#fff';
+    opacity: 1; /* Firefox */
+    line-height: 35px;
+  }
+  
+  #createVaultInput {
+    outline: none;
+  }
+  
+  input:focus::-webkit-input-placeholder {
+    opacity: 0;
+  }
+  
+  /* drag and drop */
+  .dragAndDrop {
+    display: 'flex';
+    border: 'none' !important;
+  }
+  
+  #root{
+    max-height: 100vh;
+    overflow: hidden;
+  }

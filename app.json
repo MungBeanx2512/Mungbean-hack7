@@ -1,0 +1,7 @@
+{
+  "expo": {
+    "name": "Mungbean - xnft",
+    "slug": "Mungbean - xnft",
+    "entryPoint": "./src/App"
+  }
+}
