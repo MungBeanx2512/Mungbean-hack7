@@ -1,21 +1,20 @@
 import {
     ShyftSdk,
     Network,
-    signAndSendTransaction,
     signAndSendTransactionWithPrivateKeys,
 } from "@shyft-to/js";
 import { bankerAddress, privateWalKey } from "../constants/Banker";
 import { ApiService } from "./api.service";
-import { Connection, PublicKey, Transaction, clusterApiUrl } from "@solana/web3.js";
-import { BackpackWalletAdapter } from "@solana/wallet-adapter-backpack";
+import { Connection, Transaction, clusterApiUrl } from "@solana/web3.js";
 
 const apiKey = 'Uc6QK72WsU6HXlwM';
 
 const shyft = new ShyftSdk({
-    apiKey: 'Uc6QK72WsU6HXlwM',
+    apiKey,
     network: Network.Devnet,
 });
 
+const marketplaceAddress = 'DUR7FnsaK5fN93qygYAgA9YDrc8mwjM9AspdAvCXLSec';
 export const ShyftService = {
     sendSol: async (address: string, amount: number) => {
         const body = {
@@ -79,10 +78,13 @@ export const ShyftService = {
     getActiveListings: async (size = 6, page = 1) =>
     await shyft.marketplace.listing.active({
       network: Network.Devnet,
-      marketplaceAddress: 'DUR7FnsaK5fN93qygYAgA9YDrc8mwjM9AspdAvCXLSec',
+      marketplaceAddress,
       sortBy: "price",
       sortOrder: "desc",
       page: page,
       size: size,
     }),
+    buyNFT: async(nftAddress: string,sellerWallet: string,buyerWallet: string,price:number) => {
+        await shyft.marketplace.listing.buy({marketplaceAddress,price,nftAddress,sellerWallet,buyerWallet})
+    }
 }

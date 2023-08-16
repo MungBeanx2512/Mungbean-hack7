@@ -1,6 +1,5 @@
 import React, { Fragment, useContext, useState } from 'react';
 import {
-  Button,
   Dimensions,
   ScrollView,
   StyleSheet,
@@ -14,9 +13,9 @@ import { Balance } from '../components/Balance';
 import { Screen } from '../components/Screen';
 import { Colors } from '../constants/Colors';
 import ItemCard from '../components/Card/ItemCard';
-import HeliusService from '../services/helius.service';
 import { LoadingContext } from '../context/LoadingContext';
 import { FullScreenLoadingIndicator } from '../utils';
+import { ShyftService } from '../services/shyft.service';
 
 export const CheckBag = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -26,7 +25,7 @@ export const CheckBag = () => {
   const handleSearch = async () => {
     setLoading(true);
     try {
-      const response = await HeliusService.getProfile(searchValue);
+      const response = await ShyftService.getProfile(searchValue);
       setData(response);
     } catch (e) {
       console.log(e);
@@ -55,7 +54,7 @@ export const CheckBag = () => {
         <View style={styles.appWrapper}>
           {loading && <FullScreenLoadingIndicator />}
           {data &&
-            data.items.map((item: any, idx: number) => (
+            data.map((item: any, idx: number) => (
               <Fragment key={idx}>
                 <ItemCard item={item} />
               </Fragment>
@@ -74,12 +73,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.dark.background,
     display: 'flex',
     flexDirection: 'column',
+    padding: 10
   },
   searchWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 50,
+    marginTop: 10
   },
   scrollViewContent: {
     height: scrollViewHeight,
