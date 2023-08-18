@@ -6,6 +6,7 @@ import {
 import { bankerAddress, privateWalKey } from "../constants/Banker";
 import { ApiService } from "./api.service";
 import { Connection, Transaction, clusterApiUrl } from "@solana/web3.js";
+import Wallet from "../context/AdapterWallet";
 
 const apiKey = 'Uc6QK72WsU6HXlwM';
 
@@ -84,7 +85,10 @@ export const ShyftService = {
       page: page,
       size: size,
     }),
-    buyNFT: async(nftAddress: string,sellerWallet: string,buyerWallet: string,price:number) => {
-        await shyft.marketplace.listing.buy({marketplaceAddress,price,nftAddress,sellerWallet,buyerWallet})
+    buyNFT: async({nftAddress,sellerWallet,buyerWallet,price}: any) => {
+        return await shyft.marketplace.listing.buy({marketplaceAddress,price,nftAddress,sellerWallet,buyerWallet})
+    },
+    listing: async({nftAddress,price,sellerWallet}: any) => {
+        return await shyft.marketplace.listing.list({marketplaceAddress,nftAddress,price,sellerWallet});
     }
 }

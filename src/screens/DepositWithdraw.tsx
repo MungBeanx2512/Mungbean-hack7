@@ -1,12 +1,10 @@
-import React, { useContext, useEffect } from 'react';
-import { Dimensions, ScrollView, StyleSheet } from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet } from 'react-native';
 
 import { Balance } from '../components/Balance';
 import { Screen } from '../components/Screen';
 import { Colors } from '../constants/Colors';
 import { LoadingContext } from '../context/LoadingContext';
-import { FullScreenLoadingIndicator, HeaderLeft, HeaderRight } from '../utils';
-import WormholeBridge from '@wormhole-foundation/wormhole-connect';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Deposit from '../components/Deposit';

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, Image, Platform, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, Platform, StyleSheet, Text, View } from 'react-native';
 import { Colors } from '../../constants/Colors';
-import { BOLD } from '../../constants';
-import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
+import { BOLD, MEDIUM } from '../../constants';
 import { NFTService } from '../../services/nft.service';
-import mungbean from '../../assets/mungbean.png';
 import { useRoute } from '@react-navigation/native';
+import ModalPopup from '../ModalPopup/ModalPopup';
 
-export default function ItemCard({ item }: any) {
-  const [info, setInfo]: any = useState(null);
+export default function ItemCard({ item, handleListing }: any) {
+  const [info, setInfo] = useState<any>(null);
+  const [price, setPrice] = useState<string>('');
+  const [showPopup, setShowPopup] = useState<boolean>(false);
   const route = useRoute();
 
   useEffect(() => {
@@ -22,6 +23,10 @@ export default function ItemCard({ item }: any) {
       }
     })();
   }, []);
+
+  const handleShowPopUp = (type: boolean) => {
+    return setShowPopup(type);
+  }
 
   return (
     <View style={styles.cardWrapper}>
@@ -40,15 +45,42 @@ export default function ItemCard({ item }: any) {
           <View style={{ alignItems: 'center', flexDirection: 'row' }}>
             <Text
               style={{
-                color: 'red',
+                color: Colors.dark.text,
                 fontSize: 14,
                 fontFamily: BOLD,
               }}>
               {item?.price}
             </Text>
-            <Image source={mungbean} style={{ width: 20, height: 20 }} />
+            <Text
+              style={{
+                color: '#9548FC',
+                fontSize: 14,
+                fontFamily: BOLD,
+                marginLeft: 4
+              }}>
+              {item?.currency_symbol}
+            </Text>
+            {/* <Image source={mungbean} style={{ width: 20, height: 20 }} /> */}
           </View>
         )}
+        {route.name === 'Profile' &&
+          <>
+            <View style={{ marginTop: 10 }}>
+              <Button onPress={() => handleShowPopUp(true)} title='Listing' />
+            </View>
+            <ModalPopup title={'List NFT'} isVisible={showPopup} closeModal={() => handleShowPopUp(false)}>
+              <View style={styles.listItem}>
+                <label style={styles.listingLabel}>Price</label>
+                <input style={styles.listingInput} value={price} onChange={(e)=>setPrice(e.currentTarget.value)}/>
+              </View>
+              <View style={styles.listItem}>
+                <label style={styles.listingLabel}>NFT Address</label>
+                <input style={styles.listingInput} value={item.address} disabled />
+              </View>
+              <Button onPress={()=>handleListing({...item, price,})} title='Listing' />
+            </ModalPopup>
+          </>
+        }
       </View>
     </View>
   );
@@ -77,7 +109,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: '85%',
+    height: '80%',
     resizeMode: 'cover',
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
@@ -89,4 +121,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  listItem: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 10,
+    marginBottom: 20
+  },
+  listingLabel: {
+    fontFamily: MEDIUM,
+    fontSize: 18,
+    width: 120
+  },
+  listingInput: {
+    flex: 1
+  }
 });

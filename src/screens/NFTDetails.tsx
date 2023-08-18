@@ -12,15 +12,35 @@ import { Colors } from '../constants/Colors';
 import { BOLD, MEDIUM, REGULAR } from '../constants';
 import { FullScreenLoadingIndicator } from '../utils';
 import { LoadingContext } from '../context/LoadingContext';
+import { ShyftService } from '../services/shyft.service';
+import { WalletContext } from '../context/WalletContext';
+import { useWallet } from '@solana/wallet-adapter-react';
 
 const NFTDetail = ({ route }: any) => {
   const { item } = route.params;
-  const { nft } = item
+  const { nft } = item;
+  const { wallet: walletInfo }: any = useContext(WalletContext);
+  const {wallet}: any = useWallet();
   const { loading, setLoading } = useContext(LoadingContext);
-  console.log(item)
 
-  const handleBuy = () => {
+  const handleBuy = async() => {
     setLoading(true);
+    try{
+      const dataBuy = {
+        nftAddress: item.nft_address,
+        sellerWallet: item.seller_address,
+        price: item.price,
+        buyerWallet: walletInfo.address
+      };
+      const buyRes: any = await ShyftService.buyNFT(dataBuy);
+      if(buyRes.encoded_transaction) {
+        await ShyftService.signContract(buyRes.encoded_transaction,wallet.adapter);
+      }
+    }catch(e) {
+      console.log(e)
+    }finally {
+      setLoading(false);
+    }
   }
   return (
     <View style={styles.container}>
