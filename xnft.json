@@ -1,0 +1,20 @@
+{
+  "name": "Mungbean xNFT",
+  "storage": "ipfs",
+  "version": "0.0.1",
+  "description": "a simple devnet",
+  "website": "http://mungbean.dev",
+  "tag": "none",
+  "price": 0,
+  "kind": "app",
+  "icon": {
+    "md": "./assets/mungbean.png"
+  },
+  "screenshots": ["./assets/mungbean.png"],
+  "contact": "@discord/mungbean",
+  "entrypoints": {
+    "default": {
+      "web": "./web-build/index.html"
+    }
+  }
+}
