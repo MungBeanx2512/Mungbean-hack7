@@ -1,38 +1,40 @@
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useWallet } from '@solana/wallet-adapter-react';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, Image, Text, Dimensions, ScrollView } from 'react-native';
 
 import { Colors, BOLD } from '../../constants';
-import { WalletContext } from '../../context/WalletContext';
-import ItemCard from '../Card/ItemCard';
 import { LoadingContext } from '../../context/LoadingContext';
-import { FullScreenLoadingIndicator } from '../../utils';
+import { WalletContext } from '../../context/WalletContext';
 import { ShyftService } from '../../services/shyft.service';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useRoute } from '@react-navigation/native';
+import { FullScreenLoadingIndicator } from '../../utils';
+import ItemCard from '../Card/ItemCard';
 
 export const ProfileComponent = ({ navigation }: any) => {
   const { wallet: walletInfo } = useContext(WalletContext);
-  const { wallet } = useWallet();
+  const { publicKey } = useWallet();
+  const wallet = useWallet();
   const [userProfile, setUserProfile]: any = useState(null);
   const { loading, setLoading } = useContext(LoadingContext);
-  const route = useRoute();
 
   const handleListing = async (item: any) => {
     try {
       // console.log(item)
-      console.log(walletInfo)
-      const { encoded_transaction } = await ShyftService.listing({
-        nftAddress: item.address,
-        price: item.price,
-        sallerWallet: walletInfo?.address?.publicKey
-      });
-      if (encoded_transaction) {
-        await ShyftService.signContract(encoded_transaction, wallet);
-      }
+      // console.log(publicKey);
+      // const sellerWallet = walletInfo?.address;
+      // const { encoded_transaction } = await ShyftService.listing({
+      //   nftAddress: item.mintAddress,
+      //   price: Number(item.price),
+      //   sellerWallet,
+      // });
+      // if (encoded_transaction) {
+      //   await ShyftService.signContract(encoded_transaction, wallet);
+      // }
+      navigation.navigate('Marketplace');
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     setLoading(true);

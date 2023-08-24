@@ -16,7 +16,6 @@ export default function ItemCard({ item, handleListing }: any) {
     (async () => {
       if (!item?.content?.files?.length && !item?.nft?.image_uri) {
         const info = await NFTService.getInfo(item.uri);
-        console.log(info);
         setInfo(info);
       } else {
         setInfo(item.content?.files[0]);
@@ -75,9 +74,12 @@ export default function ItemCard({ item, handleListing }: any) {
               </View>
               <View style={styles.listItem}>
                 <label style={styles.listingLabel}>NFT Address</label>
-                <input style={styles.listingInput} value={item.address} disabled />
+                <input style={styles.listingInput} value={item.mintAddress} disabled />
               </View>
-              <Button onPress={()=>handleListing({...item, price,})} title='Listing' />
+              <Button onPress={()=>{
+                handleListing({...item, price,})
+                handleShowPopUp(false)
+              }} title='Listing' />
             </ModalPopup>
           </>
         }

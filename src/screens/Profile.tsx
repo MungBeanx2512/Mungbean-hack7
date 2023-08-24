@@ -1,20 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { Balance } from '../components/Balance';
+import { ProfileComponent } from '../components/Profile/ProfileComponent';
 import { Screen } from '../components/Screen';
 import { Colors } from '../constants/Colors';
-import { ProfileComponent } from '../components/Profile/ProfileComponent';
-import MyGame from '../components/Games/MyGame';
 
-export const Profile = () => {
+export const Profile = ({ navigation }: any) => {
   // const navigation = useNavigation();
   // navigation.setOptions({ tabBarStyle: { display: 'none' } });
 
   return (
     <Screen style={styles.container}>
       <Balance />
-      <ProfileComponent />
+      <ProfileComponent navigation={navigation} />
       {/* <MyGame/> */}
     </Screen>
   );

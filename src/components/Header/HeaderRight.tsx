@@ -14,12 +14,12 @@ export const HeaderRight = () => {
   useEffect(() => {
     (async () => {
       if (publicKey && !wallet) {
-        // const balance = await ShyftService.getBalance(publicKey);
+        const balance = await ShyftService.getBalance(publicKey);
         const appBalance = await AsyncStorage.getItem('appBalance');
         await setWallet((prev: any) => ({
           ...prev,
           address: publicKey,
-          balance: 12,
+          balance: balance,
           appBalance: Number(appBalance).toFixed(2),
         }));
       } else if (wallet && publicKey === null && wallet.address) {
