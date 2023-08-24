@@ -21,15 +21,15 @@ export const ProfileComponent = ({ navigation }: any) => {
     try {
       // console.log(item)
       // console.log(publicKey);
-      // const sellerWallet = walletInfo?.address;
-      // const { encoded_transaction } = await ShyftService.listing({
-      //   nftAddress: item.mintAddress,
-      //   price: Number(item.price),
-      //   sellerWallet,
-      // });
-      // if (encoded_transaction) {
-      //   await ShyftService.signContract(encoded_transaction, wallet);
-      // }
+      const sellerWallet = walletInfo?.address;
+      const { encoded_transaction } = await ShyftService.listing({
+        nftAddress: item.mintAddress,
+        price: Number(item.price),
+        sellerWallet,
+      });
+      if (encoded_transaction) {
+        await ShyftService.signContract(encoded_transaction, wallet);
+      }
       navigation.navigate('Marketplace');
     } catch (e) {
       console.log(e);
