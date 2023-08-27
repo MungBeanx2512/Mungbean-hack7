@@ -23,6 +23,7 @@ import { DepositWithdraw } from './screens/DepositWithdraw';
 import MyGame from './components/Games/MyGame';
 import { HeaderRight } from './components/Header/HeaderRight';
 import NFTDetail from './screens/NFTDetails';
+import HorseRace from './components/Games/MySeconGame';
 
 global.Buffer = global.Buffer || Buffer;
 
@@ -144,6 +145,14 @@ function App() {
             <Stack.Screen
               name="Lucky Game"
               component={MyGame}
+              options={{
+                headerStyle: styles.headerStyle,
+                headerTintColor: Colors.dark.text,
+              }}
+            />
+            <Stack.Screen
+              name="Racing"
+              component={HorseRace}
               options={{
                 headerStyle: styles.headerStyle,
                 headerTintColor: Colors.dark.text,

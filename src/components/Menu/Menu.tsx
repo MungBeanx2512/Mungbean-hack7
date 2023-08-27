@@ -102,7 +102,20 @@ export const Menu = ({ navigation }: any) => {
             Lucky Game
           </Text>
         </TouchableOpacity>
-        <View style={styles.innerApp}></View>
+        <TouchableOpacity
+          style={[styles.innerApp, { backgroundColor: '#570A57' }]}
+          onPress={() => navigation.navigate('Racing')}>
+          <Text
+            allowFontScaling={false}
+            style={{
+              fontSize: innerSize,
+              color: Colors['dark'].text,
+              textAlign: 'center',
+              fontFamily: REGULAR,
+            }}>
+            Racing Game
+          </Text>
+        </TouchableOpacity>
         <View style={styles.innerApp}></View>
         <View style={styles.innerApp}></View>
       </View>
